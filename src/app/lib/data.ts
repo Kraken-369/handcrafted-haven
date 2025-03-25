@@ -1,5 +1,7 @@
 // data-access.ts
-import { User ,UserDocument  , UserUpdate } from '../models/user';
+import { getUserModel ,UserDocument  , UserUpdate } from '../models/user';
+
+const User = getUserModel();
  
 export async function getAllUsers() {
   try {

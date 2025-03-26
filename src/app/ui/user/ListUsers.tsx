@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { listUsers } from '@/app/lib/actions/listUsers';
-// import { Button } from '@/app/ui/button';
+import { listUsers } from '@/app/lib/actions/user';
 
 
 interface User{
@@ -14,7 +13,6 @@ interface User{
 
  
 
-  
 export default function ListUsers() {
  
   const [users, setUsers] = useState<User[]>([]);

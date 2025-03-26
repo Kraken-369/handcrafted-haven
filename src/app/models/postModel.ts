@@ -1,23 +1,19 @@
-// models/user.ts
 import { Schema,  Types  ,model ,models } from 'mongoose';
 
-const userSchema = new Schema({
+const postSchema = new Schema({
   _id: {
     type: String,
     default: () => new Types.ObjectId().toString(),
   },
-  email: {
+  msg: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  optional: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
-export const UserModel = models.user ||  model('user',userSchema); 
-  
-
-
+export const PostSchema = models.post || model('post',postSchema);

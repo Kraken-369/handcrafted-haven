@@ -15,9 +15,7 @@ export async function connectToMongoDB(): Promise<void> {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI as string, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.MONGODB_URI as string, {            
       serverSelectionTimeoutMS: 5000,
     } as ConnectOptions);
 

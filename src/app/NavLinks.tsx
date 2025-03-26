@@ -1,17 +1,23 @@
-import Link from "next/link";
-import React from "react";
+'use client';
+
+import Link from 'next/link';
+import React from 'react';
 
 const links = [
-  { linkName: "Home", url: "/" },
-  { linkName: "Products", url: "/products" },
-  { linkName: "Contact Us", url: "/contact" },
+  { linkName: 'Home', href: '/' },
+  { linkName: 'Products', href: '/products' },
+  { linkName: 'Contact Us', href: '/contact' },
 ];
 
 function NavLinks() {
   return (
     <div>
       {links.map((link) => {
-        <Link key={linkName}></Link>;
+        return (
+          <Link key={link.linkName} href={link.href}>
+            <p>{link.linkName}</p>
+          </Link>
+        );
       })}
     </div>
   );

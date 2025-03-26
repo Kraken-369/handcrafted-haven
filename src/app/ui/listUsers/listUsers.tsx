@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useEffect, useState } from 'react';
 import { listUsers } from '@/app/lib/actions/listUsers';
 // import { Button } from '@/app/ui/button';
 
@@ -17,16 +17,24 @@ interface User{
   
 export default function ListUsers() {
  
-sssssssssss
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-    const [state, formAction] = useActionState(listUsers, {
-        data: [],
-        loading: false,
-        error: null,
-      });
-    
-    
-      const { data: users, loading, error } = state;
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      const { data, error } = await listUsers();
+      if (error) {
+        setError(error);
+      } else {
+        setUsers(data);
+      }
+      setLoading(false);
+    };
+
+    fetchUsers();
+  }, []);
 
      
 
@@ -34,7 +42,7 @@ sssssssssss
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
           <div className="flex justify-between items-center mb-4">
             <h1>Lista de Usuarios</h1>
-            <button onClick={formAction} disabled={loading}>
+            <button onClick= {() => window.location.reload()} disabled={loading}>
               {loading ? 'Cargando...' : 'Actualizar'}
             </button>
           </div>

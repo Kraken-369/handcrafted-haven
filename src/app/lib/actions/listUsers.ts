@@ -1,12 +1,23 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { getUserModel } from '@/app/models/user';
+//import { NextApiRequest, NextApiResponse } from 'next';
+import { connectToMongoDB } from '@/app/lib/db';
+import { getUserModel } from '@/app/models/getUserModel';
+
+
 
 export async function listUsers() {
   try {
+    await connectToMongoDB();
+
     const UserModel = await getUserModel();
+    
+    console.log(`listUsers moduel, UserModel=${UserModel}`); // 
+    
     const users = await UserModel.find().exec();
-    return users;
+
+
+    return { data: users, error: null };;
   } catch (error) {
-    throw new Error('Error al obtener los usuarios');
+
+        return { data: [], error: `Error getting user data, error:${error}` };
   }
 }

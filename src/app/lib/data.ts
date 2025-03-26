@@ -1,11 +1,15 @@
 // data-access.ts
-import { getUserModel ,UserDocument  , UserUpdate } from '../models/user';
+/*
+import { getUserModel } from '../models/user';
 
-const User = getUserModel();
+const UserModel = await getUserModel();
  
 export async function getAllUsers() {
   try {
-    const users = await User.find();
+       // Obtener el modelo de usuario
+       
+
+    const users = await UserModel.find();
     return users;
   } catch (error) {
     console.error('Error al obtener los usuarios:', error);
@@ -53,4 +57,4 @@ export async function deleteUser(userId: string) {
     console.error('Error al eliminar el usuario:', error);
     throw error;
   }
-}
+}*/

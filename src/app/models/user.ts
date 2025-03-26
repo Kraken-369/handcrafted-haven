@@ -1,5 +1,6 @@
 // models/user.ts
-import  { Schema, model , Document, Types } from 'mongoose';
+import mongoose,  { Schema,  Document, Types  ,Model } from 'mongoose';
+
 
 export interface UserDocument extends Document {
   _id: string;
@@ -23,15 +24,9 @@ const userSchema = new Schema<UserDocument>({
   },
 });
 
-// Prevent Mongoose from throwing an error if the model is already defined
-export const getUserModel = () => {
-  try {
-    return model<UserDocument>('User', userSchema);
-  } catch (error) {
 
-      throw new Error('Failed to create User model');
-  }
-};
+// export const UserModel: Model<UserDocument> = mongoose.models.users || mongoose.model<UserDocument>('users', userSchema);
+// export const UserModel = mongoose.models.User || mongoose.model<UserDocument>('users', userSchema , 'users');
+//export const UserModel: Model<UserDocument> = mongoose.models.users || mongoose.model<UserDocument>('users', userSchema);
 
-// export const User = model<UserDocument>('User', userSchema);
-export type UserUpdate = Omit<UserDocument, '_id'>;
+  export const UserModel: Model<UserDocument> = mongoose.models.users || mongoose.model<UserDocument>('users', userSchema);

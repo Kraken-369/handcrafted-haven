@@ -24,3 +24,46 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.footer {
+  margin-top: auto;
+  padding: 1rem;
+  background-color: #0a5d5d;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.footer nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #ececec;
+}
+
+.footer nav a:hover {
+  color: #020202;
+  text-decoration: underline;
+}
+
+.social-media {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+}
+
+.social-media a {
+  color: #ececec;
+  transition: color 0.3s ease;
+}
+
+.social-media a:hover {
+  color: #0070f3; 
+}

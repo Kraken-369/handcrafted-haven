@@ -2,9 +2,9 @@ import NavLinks from './NavLinks';
 
 function NavBar() {
   return (
-    <div>
+    <nav className="bg-gray-800 p-4">
       <NavLinks />
-    </div>
+    </nav>
   );
 }
 export default NavBar;

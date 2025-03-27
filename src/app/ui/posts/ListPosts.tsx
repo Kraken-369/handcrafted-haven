@@ -81,14 +81,14 @@ export default function ListUsers() {
 
                   <tr key={post._id}>
 
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-black">
                       {post._id}
                     </td>
                   
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-black">
                       {post.msg}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-black">
                       {post.optional}
                     </td>
                   </tr>

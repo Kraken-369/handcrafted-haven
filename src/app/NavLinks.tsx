@@ -11,14 +11,10 @@ const links = [
 
 function NavLinks() {
   return (
-    <div className="container mx-auto flex justify-between items-center gap-4">
+    <div className="nav-links">
       {links.map((link) => {
         return (
-          <Link
-            key={link.linkName}
-            href={link.href}
-            className="text-gray-300 hover:text-white"
-          >
+          <Link key={link.linkName} href={link.href} className="nav-link">
             <p>{link.linkName}</p>
           </Link>
         );

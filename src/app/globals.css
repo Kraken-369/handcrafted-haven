@@ -1,8 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --navBackground: #ececec;
 }
 
 @theme inline {
@@ -38,7 +39,7 @@ body {
   background-color: #0a5d5d;
   text-align: center;
   width: 100%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .footer nav a {
@@ -56,7 +57,7 @@ body {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
-  gap: 20px; 
+  gap: 20px;
 }
 
 .social-media a {
@@ -65,5 +66,27 @@ body {
 }
 
 .social-media a:hover {
-  color: #0070f3; 
+  color: #0070f3;
+}
+
+.navbar {
+  background: var(--navBackground);
+  color: var(--foreground);
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2em;
+}
+
+.nav-link {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 1.5em;
+}
+
+.nav-link:hover {
+  background: var(--foreground);
+  color: var(--background);
 }

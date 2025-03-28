@@ -1,9 +1,8 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --navBackground: #ececec;
 }
 
 @theme inline {
@@ -24,69 +23,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-
-.footer {
-  margin-top: auto;
-  padding: 1rem;
-  background-color: #0a5d5d;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.footer nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #ececec;
-}
-
-.footer nav a:hover {
-  color: #020202;
-  text-decoration: underline;
-}
-
-.social-media {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.social-media a {
-  color: #ececec;
-  transition: color 0.3s ease;
-}
-
-.social-media a:hover {
-  color: #0070f3;
-}
-
-.navbar {
-  background: var(--navBackground);
-  color: var(--foreground);
-}
-
-.nav-links {
-  display: flex;
-  justify-content: flex-start;
-  gap: 2em;
-}
-
-.nav-link {
-  color: var(--foreground);
-  text-decoration: none;
-  padding: 1.5em;
-}
-
-.nav-link:hover {
-  background: var(--foreground);
-  color: var(--background);
 }

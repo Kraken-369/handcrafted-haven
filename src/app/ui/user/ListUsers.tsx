@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { listUsers } from '@/app/lib/actions/user';
+import { listUsers } from '@/api/controllers/user';
 
 
 interface User{

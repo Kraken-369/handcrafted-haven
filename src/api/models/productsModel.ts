@@ -9,6 +9,7 @@ const productsModel = new Schema({
   images: { type: String, required: true  },
   category: { type:  String , enum:['Clothing & Accessories',
     'Jewelry', 'Home Decor' ,'Personal Care', 'Food & Beverages','Stationery & Paper Goods','Toys & Games', 'Artwork & Prints','Leather Goods','Miscellaneous Handmade Item'] , required: true },
+  creator: { type: String, required: true   },
   status: { type: String, enum: ["Available", "Out of stock"], required: true }
   ,
 });

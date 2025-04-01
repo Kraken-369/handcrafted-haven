@@ -36,6 +36,7 @@ if (allProducts.data && allProducts.data.length > 0) {
       price: 10,      
       images: 'https://plus.unsplash.com/premium_photo-1679811671315-9e7160cfef7a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       category: 'Home Decor',
+      creator: 'Joseph Brasso' ,
       status: 'Available'
   }, 
   {
@@ -44,6 +45,7 @@ if (allProducts.data && allProducts.data.length > 0) {
     price: 9,  
     images: 'https://images.unsplash.com/photo-1638228626093-3fccb49743fd?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     category: 'Home Decor',
+    creator: 'Peter Owen' ,
     status: 'Available'
 } ,
 {
@@ -52,6 +54,7 @@ if (allProducts.data && allProducts.data.length > 0) {
   price: 10.5,
   images: 'https://images.unsplash.com/photo-1599108859517-0d6aed78ac87?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   category: 'Leather Goods',
+  creator: 'Emmanuel Giffins' ,
   status: 'Available'
 } 
 
@@ -67,7 +70,8 @@ if (allProducts.data && allProducts.data.length > 0) {
            images:mm.images,
            name:mm.name,
            price:mm.price,
-           status:mm.status
+           status:mm.status,
+           creator: mm.creator
         };        
 
        await saveProductsOnMongo(myprod);

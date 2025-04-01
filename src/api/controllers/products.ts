@@ -1,5 +1,5 @@
 'use server';
-//import connectDB from '@/api/config/db';
+// import connectDB from '@/api/config/db';
 import { connectDB } from '@/api/db';
 import { ProductsModel } from '@/api/models/productsModel';
 
@@ -32,6 +32,7 @@ export type newProductsType = {
   price:  number;
   images: string;
   category:  string;
+  creator:  string;
   status:   string;
 };
 
@@ -42,7 +43,8 @@ export async function saveProductsOnMongo(products:newProductsType) {
 
   try {
     console.log(`saveProductsOnMongo:Recibi:${products.name}`);
-     await  connectDB();       
+     await  connectDB();     
+       
      const newProduct = new ProductsModel(products);
      await newProduct.save();
      return newProduct;

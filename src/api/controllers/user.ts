@@ -1,6 +1,4 @@
 'use server';
-// import { connect ToMongoDB } from '@/api/db';
-// import { connect ToMongoDB } from '@/api/db';
 //import connectDB from '@/api/config/db';
 import { connectDB } from '@/api/db';
 import { UserModel } from '@/api/models/user';

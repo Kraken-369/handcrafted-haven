@@ -1,10 +1,11 @@
 'use server';
 
-
+import { connectDB } from '@/api/db';
+// import connectDB from '@/api/config/db';
 import {PostModel} from '@/api/models/postModel';
  
- import { connectDB } from '@/api/db';
-//import connectDB from '@/api/config/db';
+  
+
 export default async function listPostAction(){
     try{
 

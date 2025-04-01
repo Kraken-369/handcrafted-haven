@@ -91,6 +91,9 @@ export default function ListProducts() {
             ))
           ) : (
             filteredProducts.map((product) => (
+
+              
+
               <div key={product._id} className="bg-white p-4 rounded-lg shadow">
                 <img
                   src={product.images}

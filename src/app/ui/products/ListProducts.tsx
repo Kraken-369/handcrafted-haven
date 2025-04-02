@@ -94,7 +94,7 @@ export default function ListProducts() {
 
               
 
-              <div key={product._id} className="bg-white p-4 rounded-lg shadow">
+              <div key={product._id} className="bg-gray-100 p-4 rounded-lg shadow-lg ">
                 <img
                   src={product.images}
                   alt={product.name}
@@ -103,7 +103,13 @@ export default function ListProducts() {
                 <h2 className="text-xl font-semibold text-primary mb-2">
                   {product.name}
                 </h2>
-                <p className="text-primary/70 mb-4">{product.description}</p>
+          {/*"text-primary/70 mb-4   leading-6 text-justify min-h-[5rem]"*/}
+                <div className="p-4 rounded-lg bg-white shadow-sm min-h-[200px]">
+                <p className= "text-primary/70 mb-4 leading-6 text-justify h-full">
+                   {product.description}
+                   </p>
+                </div>
+
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-bold text-primary">
                     ${product.price}
@@ -119,7 +125,7 @@ export default function ListProducts() {
                     {product.status}
                   </span>
                 </div>                
-                <p className="text-primary/70 mb-4">By {product.creator}</p>
+                <p className="text-primary">By {product.creator}</p>
 
               </div>
             ))

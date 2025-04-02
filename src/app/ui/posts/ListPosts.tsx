@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import  listPostAction  from '@/app/lib/actions/post';
+import  listPostAction  from '@/api/controllers/post';
 // import { Button } from '@/app/ui/button';
 
 

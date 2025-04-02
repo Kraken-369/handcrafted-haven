@@ -8,7 +8,7 @@ import mongoose, { Connection, ConnectOptions } from 'mongoose';
 
 let cachedConnection: typeof mongoose | null = null;
 
-export async function connectToMongoDB(): Promise<void> {
+export async function connectDB(): Promise<void> {
   if (cachedConnection && mongoose.connection.readyState === 1) {
     console.log('✅ Usando conexión existente a MongoDB');
     return;

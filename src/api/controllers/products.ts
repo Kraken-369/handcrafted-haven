@@ -1,43 +1,62 @@
 'use server';
-import { connectToMongoDB } from '@/app/lib/db';
-import { UserModel } from '@/app/models/user';
+import connectDB from '@/api/config/db';
+// import { connectDB } from '@/api/db';
+import { ProductsModel } from '@/api/models/productsModel';
+
+/*
 import { z } from 'zod';
-import bcrypt from 'bcryptjs';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-
-
-export async function hashPassword(password: string): Promise<string> {
-  const saltRounds = 10; // Nivel de complejidad del hash
-  const salt = await bcrypt.genSalt(saltRounds);
-  const hash = await bcrypt.hash(password, salt);
-  return hash;
-}
+*/
+ 
 
 
 
-export async function listUsers() {
+export async function listProducts() {
 
-  try {
-    await connectToMongoDB();
-    const users = JSON.parse(JSON.stringify( await UserModel.find()));
+  try { 
+    await  connectDB();
+    const users = JSON.parse(JSON.stringify( await ProductsModel.find()));
     return { data: users, error: null };
-
   } catch (error) {
-
-          const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
-        return { data: [], error: errorMessage }; // Devuelve el error como string
+    const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
+    return { data: [], error: errorMessage }; // Devuelve el error como string
         
   }
 }
 
 
+export type newProductsType = {
+  name: string ;
+  description: string;
+  price:  number;
+  images: string;
+  category:  string;
+  creator:  string;
+  status:   string;
+};
+
+ 
 
 
+export async function saveProductsOnMongo(products:newProductsType) {
 
+  try {
+    console.log(`saveProductsOnMongo:Recibi:${products.name}`);
+     await  connectDB();     
+       
+     const newProduct = new ProductsModel(products);
+     await newProduct.save();
+     return newProduct;
 
+     
+  } catch (error) {
+    console.error('Error while create a new product:', error);
+    throw error;
+  }
+}
 
-
+/*
 
 
 const UserFormSchema = z.object({
@@ -66,29 +85,9 @@ const CreateUserValidator = UserFormSchema.omit({ id: true});
  
 
 
- type newUserType = {
-       email: string;
-     password:string; 
-  
-};
 
   
-  export async function saveUserOnMongo(user: newUserType ) {
-
-    try {
-        await connectToMongoDB();
-        //const users = JSON.parse(JSON.stringify( await UserModel.find()));
-
-
-         
-        const newUser = new UserModel(user);
-        await newUser.save();
-        return newUser;
-    } catch (error) {
-      console.error('Error al crear el usuario:', error);
-      throw error;
-    }
-  }
+  
 
 
 
@@ -148,7 +147,7 @@ const CreateUserValidator = UserFormSchema.omit({ id: true});
     
   }
 
-
+*/
 
 
   

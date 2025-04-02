@@ -1,7 +1,7 @@
 'use server';
 
-import { connectDB } from '@/api/db';
-// import connectDB from '@/api/config/db';
+// import { connectDB } from '@/api/db';
+import connectDB from '@/api/config/db';
 import {PostModel} from '@/api/models/postModel';
  
   

@@ -93,7 +93,6 @@ export default function ListProducts() {
             filteredProducts.map((product) => (
 
               
-
               <div key={product._id} className="bg-gray-100 p-4 rounded-lg shadow-lg ">
                 <img
                   src={product.images}
@@ -104,7 +103,7 @@ export default function ListProducts() {
                   {product.name}
                 </h2>
           {/*"text-primary/70 mb-4   leading-6 text-justify min-h-[5rem]"*/}
-                <div className="p-4 rounded-lg bg-white shadow-sm min-h-[200px]">
+                <div className="p-4 rounded-lg bg-white mb-4 shadow-sm min-h-[150px]">
                 <p className= "text-primary/70 mb-4 leading-6 text-justify h-full">
                    {product.description}
                    </p>

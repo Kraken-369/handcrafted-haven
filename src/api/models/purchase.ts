@@ -4,14 +4,14 @@ const PurchaseSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'User', required: true
+      ref: 'user', required: true
     },
     products: [
       new Schema(
         {
           productId: {
             type: Schema.Types.ObjectId,
-            ref: 'Products',
+            ref: 'products',
             required: true
           },
           quantity: {
@@ -54,6 +54,6 @@ const PurchaseSchema = new Schema(
   } 
 );
 
-const Purchase = models.Purchase || model('Purchase', PurchaseSchema, 'purchases');
+const Purchase = models.Purchase || model('Purchase', PurchaseSchema);
 
 export default Purchase;

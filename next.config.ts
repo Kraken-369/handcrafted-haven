@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  env: {
-    MONGODB_URI: process.env.MONGODB_URI,
-  },
+  /*env: {
+    MONGOD B_URI: process.env.MONGOD B_URI,
+  },*/
 };
 
 export default nextConfig;

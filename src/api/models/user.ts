@@ -1,4 +1,3 @@
-// models/user.ts
 import { Schema,  Types  ,model ,models } from 'mongoose';
 
 const userSchema = new Schema({

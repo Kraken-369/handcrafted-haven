@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -94,11 +93,13 @@ export default function ListProducts() {
 
               
               <div key={product._id} className="bg-gray-100 p-4 rounded-lg shadow-lg ">
+           {/* 
                 <img
                   src={product.images}
                   alt={product.name}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
+                */}
                 <h2 className="text-xl font-semibold text-primary mb-2">
                   {product.name}
                 </h2>

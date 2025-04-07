@@ -1,11 +1,15 @@
 import { Handlee, Jost } from 'next/font/google';
  
-export const handlee = Handlee({
+export const jost = Jost({
+  display: 'swap',
   subsets: ['latin'],
-  weight: '400'
+  variable: '--font-primary',
+  weight: ['400', '700', '900'],
 });
 
-export const jost = Jost({
+export const handlee = Handlee({
+  display: 'swap',
   subsets: ['latin'],
-  weight: ['400', '700', '900']
+  variable: '--font-secondary',
+  weight: '400',
 });

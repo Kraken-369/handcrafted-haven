@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { handlee, jost } from '@/app/ui/fonts';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,14 +11,14 @@ const Navbar = () => {
     <nav className="bg-white shadow-md sticky top-0 w-full z-50">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <div className={`${handlee.className} logo`}>
+        <div className={`handwriting logo`}>
           <Link href="/" className="hover:text-blue-600">
             Handcrafted Haven
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <ul className={`${jost.className} hidden md:flex flex-1 justify-center space-x-6 text-gray-700`}>
+        <ul className={`hidden md:flex flex-1 justify-center space-x-6 text-gray-700`}>
           <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
           <li><Link href="/" className="hover:text-blue-600">About Us</Link></li>
           <li><Link href="/" className="hover:text-blue-600">Products</Link></li>

@@ -1,6 +1,5 @@
 'use server';
 import connectDB from '@/api/config/db';
-// import { connectDB } from '@/api/db';
 import { UserModel } from '@/api/models/user';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
@@ -20,7 +19,6 @@ export async function hashPassword(password: string): Promise<string> {
 export async function listUsers() {
 
   try {
-   // await connectT oMongoDB();
     await  connectDB();
     const users = JSON.parse(JSON.stringify( await UserModel.find()));
     return { data: users, error: null };
@@ -67,22 +65,23 @@ const CreateUserValidator = UserFormSchema.omit({ id: true});
   };
  
 
+ 
 
  type newUserType = {
-       email: string;
-     password:string; 
-  
+    name: string;
+    email:   string;
+    password:  string;
+    role: string;
+    status: string;  
 };
 
   
   export async function saveUserOnMongo(user: newUserType ) {
 
     try {
-       // await connectTo MongoDB();
-       //const users = JSON.parse(JSON.stringify( await UserModel.find()));
+ 
        await  connectDB();
-
-         
+      
         const newUser = new UserModel(user);
         await newUser.save();
         return newUser;

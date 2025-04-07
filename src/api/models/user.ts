@@ -5,6 +5,10 @@ const userSchema = new Schema({
     type: String,
     default: () => new Types.ObjectId().toString(),
   },
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -12,6 +16,15 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
+    required: true,
+  },
+  role: {
+    type: String, enum:['artisan','admin','user'] ,
+    required: true,
+    
+  },
+  status: {
+    type: String,enum:['pending','verified','suspended'] ,
     required: true,
   },
 });

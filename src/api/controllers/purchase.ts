@@ -2,7 +2,8 @@ import Purchase from '@/api//models/purchase';
 import '@/api/models/user';
 import '@/api/models/productsModel'
 import { NextApiRequest, NextApiResponse } from 'next';
-import connectDB from "@/api/config/db"; 
+import connectDB from '@/api/config/db'; 
+
 await connectDB();
 
 export const createPurchase = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -14,7 +15,6 @@ export const createPurchase = async (req: NextApiRequest, res: NextApiResponse) 
       products,
       totalAmount,
     });
-    console.log(newPurchase);
 
     await newPurchase.save();
 

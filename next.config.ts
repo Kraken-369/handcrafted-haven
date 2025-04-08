@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  /*env: {
-    MONGOD B_URI: process.env.MONGOD B_URI,
-  },*/
+  images: {
+    domains: [
+      'fastly.picsum.photos',
+      'cdn.pixabay.com'
+    ],
+  },
 };
 
 export default nextConfig;

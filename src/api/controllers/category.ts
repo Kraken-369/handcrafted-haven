@@ -29,5 +29,10 @@ export const createCategory =  async(req: NextApiRequest, res: NextApiResponse) 
 }
 
 export const getAllCategories = async(req: NextApiRequest, res: NextApiResponse) => {
-  res.status(404).json({ message: 'The method has not been implemented yet.' });
+  try {
+    const categories = await Category.find();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ message: `Internal Server Error: ${error}` });
+  }
 }

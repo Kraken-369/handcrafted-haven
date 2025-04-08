@@ -18,6 +18,7 @@ export default function CategoryGallery() {
     const fetchCategories = async () => {
       try {
         const response = await axios.get('/api/categories');
+
         setCategories(response.data.slice(0, 5));
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -29,9 +30,9 @@ export default function CategoryGallery() {
 
   return (
     <section className="w-full py-8 px-4">
-      <h2 className="text-2xl font-bold mb-6 text-center text-[#082e21]">Categories</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center hh-title">Categories</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {categories.map((category) => (
+        {categories.map(category => (
           <Link
             key={category._id}
             href={`/categories/${category._id}`}
@@ -45,7 +46,7 @@ export default function CategoryGallery() {
                 className="object-cover"
               />
             </div>
-            <div className="p-2 text-center text-[#0a5d5d] font-medium">
+            <div className="p-2 text-center hh-name-category font-medium">
               {category.name}
             </div>
           </Link>

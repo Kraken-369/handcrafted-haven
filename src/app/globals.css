@@ -45,3 +45,13 @@ body {
   color: var(--gray-light);
   cursor: pointer;
 }
+
+.hh-title {
+  color: var(--black);
+  font-family: var(--font-secondary);
+  font-size: 1.85rem;
+}
+
+.hh-name-category {
+  color: var(--green-light);
+}

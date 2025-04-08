@@ -1,23 +1,19 @@
+import clsx from 'clsx';
 
-'use client';
-import React from 'react';
-
-interface ButtonProps {
-  label: string;
-  onClick?: () => void;
-  color?: string;
-  children?: React.ReactNode;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, color = '#082e21', children }) => {
+export function Button({ children, className, ...rest }: ButtonProps) {
   return (
     <button
-      className={`bg-[${color}] text-white px-8 py-3 mt-2 rounded-full`}
-      onClick={onClick}
+      {...rest}
+      className={clsx(
+        'flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
+        className,
+      )}
     >
-      {children || label}
+      {children}
     </button>
   );
-};
-
-export default Button;
+}

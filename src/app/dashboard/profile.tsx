@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Button from "@/app/ui/button";
+import { Button } from '@/app/ui/button';
+
+
 
 interface ProfileProps {
   bio: string;
@@ -36,12 +38,13 @@ const Profile: React.FC<ProfileProps> = ({ bio, setBio, image, setImage }) => {
               value={tempBio}
               onChange={(e) => setTempBio(e.target.value)}
             />
-            <Button label="Save" onClick={handleSave} />
+                <Button onClick={handleSave}>Save</Button>
           </>
         ) : (
           <>
             <p className="text-center mb-2 max-w-md">{bio}</p>
-            <Button label="Edit Bio" onClick={() => setEditMode(true)} />
+            <Button onClick={() => setEditMode(true)}>Edit Bio</Button>
+
           </>
         )}
       </div>

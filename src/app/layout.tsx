@@ -1,7 +1,7 @@
 import "./globals.css";
 import { jost, handlee } from './ui/fonts';
 import Navbar from "./components/Navbar/Navbar";
-import Hero from "./components/Navbar/Hero";
+import Hero from "./components/Hero";
 import Footer from './ui/footer';
 
 export const metadata = {

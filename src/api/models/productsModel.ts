@@ -8,8 +8,7 @@ const productsModel = new Schema({
   price: { type: Number, required: true },
   images: { type: String, required: true  },
   categoryId: { type: Schema.Types.ObjectId,    ref: 'Category',    required: true, },
- // artisanId: { type: Schema.Types.ObjectId, ref: 'Users', required: true, },
- artisanId: { type: String, required: true },
+  artisanId: { type: Schema.Types.ObjectId, ref: 'users', required: true, },
  status: { type: String, enum: ["Available", "Out of stock"], required: true }
   ,
 });

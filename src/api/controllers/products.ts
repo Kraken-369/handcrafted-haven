@@ -1,6 +1,11 @@
 'use server';
+
 import connectDB from '@/api/config/db';
 import { ProductsModel } from '@/api/models/productsModel';
+import Product from '@/api/models/product';
+import Category from '../models/category';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { ObjectId } from 'mongodb';
 
 export async function listProducts() {
 
@@ -43,5 +48,25 @@ export async function saveProductsOnMongo(products:newProductsType) {
   } catch (error) {
     console.error('Error while create a new product:', error);
     throw error;
+  }
+}
+
+export const getProductsByCategoryId = async (req: NextApiRequest, res: NextApiResponse) => {
+  void Category;
+  const { id } = req.query;
+  const categoryId = Array.isArray(id) ? id[0] : id;
+
+  if (!categoryId) {
+    return res.status(400).json({ message: 'Category ID is required.' });
+  }
+
+  await connectDB();
+
+  try {
+    const products = await Product.find({ categoryId: ObjectId.createFromHexString(categoryId) }).populate('categoryId', 'name');
+
+    return res.status(200).json(products);
+  } catch (error) {
+    return res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 }

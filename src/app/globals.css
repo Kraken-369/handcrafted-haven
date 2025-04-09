@@ -52,6 +52,11 @@ body {
   font-size: 1.85rem;
 }
 
-.hh-name-category {
+.hh-sub-title {
+  color: var(--black)
+}
+
+.hh-name-category,
+.hh-price {
   color: var(--green-light);
 }

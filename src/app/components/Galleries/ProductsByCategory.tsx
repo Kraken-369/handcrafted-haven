@@ -11,7 +11,7 @@ interface Category {
   imageUrl: string;
 }
 
-export default function CategoryGallery() {
+export default function ProductsByCategory() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {

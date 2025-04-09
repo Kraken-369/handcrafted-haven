@@ -1,4 +1,4 @@
-import CategoryGallery from '@/app/components/Galleries/Category';
+import ProductsByCategory from '@/app/components/Galleries/ProductsByCategory';
 import Hero from '@/app/components/Hero';
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
           <h2>[Testimonials]</h2>
         </section>
         <hr />
-        <CategoryGallery />
+        <ProductsByCategory />
       </div>
     </>
   );

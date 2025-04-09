@@ -1,10 +1,11 @@
 import Category from '@/api/models/category';
 import { NextApiRequest, NextApiResponse } from 'next';
-import connectDB from '@/api/config/db'; 
+import connectDB from '@/api/config/db';
+import { ObjectId } from 'mongodb';
 
 await connectDB();
 
-export const createCategory =  async(req: NextApiRequest, res: NextApiResponse) => {
+export const createCategory =  async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { name, description, imageUrl } = req.body;
     
@@ -28,12 +29,33 @@ export const createCategory =  async(req: NextApiRequest, res: NextApiResponse) 
   }
 }
 
-export const getAllCategories = async(req: NextApiRequest, res: NextApiResponse) => {
+export const getAllCategories = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const categories = await Category.find();
     
-    res.status(200).json(categories);
+    return res.status(200).json(categories);
   } catch (error) {
-    res.status(500).json({ message: `Internal Server Error: ${error}` });
+    return res.status(500).json({ message: `Internal Server Error: ${error}` });
+  }
+}
+
+export const getCategoryById = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+  const categoryId = Array.isArray(id) ? id[0] : id;
+
+  if (!categoryId) {
+    return res.status(400).json({ message: 'Category ID is required.' });
+  }
+
+  if (!ObjectId.isValid(categoryId)) {
+    return res.status(400).json({ message: 'Invalid category ID format.'});
+  }
+
+  try {
+    const category = await Category.findById(categoryId);
+
+    return res.status(200).json(category);
+  } catch (error) {
+    return res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 }

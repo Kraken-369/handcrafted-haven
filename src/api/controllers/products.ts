@@ -11,8 +11,14 @@ export async function listProducts() {
 
   try { 
     await  connectDB();
-    const users = JSON.parse(JSON.stringify( await ProductsModel.find()));
-    return { data: users, error: null };
+
+    const products = await ProductsModel.find()
+    .populate('categoryId');
+    //.populate('artisanId');
+
+    const mydata = JSON.parse(JSON.stringify( products ));
+    console.log(mydata);
+    return { data: mydata, error: null };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
     return { data: [], error: errorMessage }; // Devuelve el error como string
@@ -22,13 +28,13 @@ export async function listProducts() {
 
 
 export type newProductsType = {
-  name: string ;
+  name: string;
   description: string;
-  price:  number;
+  price: number;
   images: string;
-  category:  string;
-  creator:  string;
-  status:   string;
+  categoryId: string;
+  artisanId: string;
+  status: string;
 };
 
  

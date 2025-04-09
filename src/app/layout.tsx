@@ -1,7 +1,6 @@
 import "./globals.css";
 import { jost, handlee } from './ui/fonts';
 import Navbar from "./components/Navbar/Navbar";
-import Hero from "./components/Hero";
 import Footer from './ui/footer';
 
 export const metadata = {
@@ -23,7 +22,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <header>
           <Navbar />
         </header>
-        <Hero />
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>

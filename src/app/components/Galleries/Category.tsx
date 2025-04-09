@@ -35,7 +35,7 @@ export default function CategoryGallery() {
         {categories.map(category => (
           <Link
             key={category._id}
-            href={`/categories/${category._id}`}
+            href={`/products/category/${category._id}`}
             className="block bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
           >
             <div className="relative h-36 w-full">

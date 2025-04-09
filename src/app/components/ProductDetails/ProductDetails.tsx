@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import styles from './ProductDetails.module.css';
+import Image from "next/image";
+import styles from "./ProductDetails.module.css";
 
 interface ProductDetailsProps {
   imageUrl: string;
@@ -12,16 +12,18 @@ interface ProductDetailsProps {
   artisanBio?: string;
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({
-  imageUrl,
-  imageAlt,
-  name,
-  description,
-  price,
-  artisanName,
-  artisanProfileImageUrl,
-  artisanBio,
-}) => {
+function ProductDetails(props: ProductDetailsProps) {
+  const {
+    imageUrl,
+    imageAlt,
+    name,
+    description,
+    price,
+    artisanName,
+    artisanProfileImageUrl,
+    artisanBio,
+  } = props;
+
   return (
     <div className={styles.productDetails}>
       <div className={styles.productImage}>
@@ -45,6 +47,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default ProductDetails;

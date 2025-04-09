@@ -1,9 +1,9 @@
-import { getProductsByCategoryId } from "@/api/controllers/products";
+import { getCategoryById } from "@/api/controllers/category";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    return getProductsByCategoryId(req, res);
+    return await getCategoryById(req, res);
   }
 
   return res.status(405).json({ error: 'Method not allowed.' });

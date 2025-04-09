@@ -1,23 +1,28 @@
 'use server';
 
 import connectDB from '@/api/config/db';
+import '@/api/models/user'; 
 import { ProductsModel } from '@/api/models/productsModel';
+
 import Product from '@/api/models/product';
 import Category from '../models/category';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
 
+
 export async function listProducts() {
 
   try { 
     await  connectDB();
+    //console.log('antes listar');
 
     const products = await ProductsModel.find()
-    .populate('categoryId');
-    //.populate('artisanId');
+    .populate('categoryId')
+    .populate('artisanId');
 
     const mydata = JSON.parse(JSON.stringify( products ));
-    console.log(mydata);
+    // console.log(mydata);
+
     return { data: mydata, error: null };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Error Unknown';

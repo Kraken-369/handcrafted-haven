@@ -1,5 +1,7 @@
 import { Schema,  Types  ,model ,models } from 'mongoose';
 
+
+
 const userSchema = new Schema({
   _id: {
     type: String,
@@ -12,24 +14,19 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
     required: true,
   },
   role: {
-    type: String, enum:['artisan','admin','user'] ,
-    required: true,
-    
-  },
-  status: {
-    type: String,enum:['pending','verified','suspended'] ,
+    type: String,
     required: true,
   },
 });
 
-export const UserModel = models.user ||  model('user',userSchema); 
+export const UserModel = models.Users || model('users', userSchema);
+
   
 
 

@@ -3,8 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-primary: var(--font-primary);
-  --font-secondary: var(--font-secondary);
+  --font-primary: 'Jost';
+  --font-secondary: 'Handlee';
   --gray-dark: rgb(119 128 130);
   --gray-light: rgb(236 236 236);
   --green-dark: rgb(8 46 33);

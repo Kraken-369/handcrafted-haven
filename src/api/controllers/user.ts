@@ -34,3 +34,13 @@ export const registerUser = async (req: NextApiRequest, res: NextApiResponse) =>
     return res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 };
+
+export const getAllUsers = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const users = await User.find().select('-password');
+    
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ message: `Internal Server Error: ${error}` });
+  }
+}

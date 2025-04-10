@@ -40,10 +40,11 @@ export default function ProductsByCategory() {
           >
             <div className="relative h-36 w-full">
               <Image
-                src={category.imageUrl}
                 alt={category.name}
-                fill
                 className="object-cover"
+                fill
+                sizes="(max-width: 100%)"
+                src={category.imageUrl}
               />
             </div>
             <div className="p-2 text-center hh-name-category font-medium">

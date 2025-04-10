@@ -1,11 +1,11 @@
 'use server';
 
 import connectDB from '@/api/config/db';
-import '@/api/models/user'; 
 import { ProductsModel } from '@/api/models/productsModel';
 
 import Product from '@/api/models/product';
-import Category from '../models/category';
+import Category from '@/api/models/category';
+import '@/api/models/user'; 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
 
@@ -14,23 +14,19 @@ export async function listProducts() {
 
   try { 
     await  connectDB();
-    //console.log('antes listar');
 
     const products = await ProductsModel.find()
-    .populate('categoryId')
-    .populate('artisanId');
+    .populate('categoryId');
 
     const mydata = JSON.parse(JSON.stringify( products ));
-    // console.log(mydata);
 
     return { data: mydata, error: null };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
-    return { data: [], error: errorMessage }; // Devuelve el error como string
+    return { data: [], error: errorMessage };
         
   }
 }
-
 
 export type newProductsType = {
   name: string;
@@ -82,26 +78,22 @@ export const getProductsByCategoryId = async (req: NextApiRequest, res: NextApiR
   }
 }
 
-// api/client.ts
 export const fetchProductsByCategoryId = async (categoryId: string) => {
   const response = await fetch(`/api/categories/${categoryId}`);
   const data = await response.json();
   return data;
 };
 
-
 export async function listProductsByCategory(categoryId: string) {
 
   try { 
     await  connectDB();
-    //console.log('antes listar');
     
     const products = await ProductsModel.find({ categoryId: ObjectId.createFromHexString(categoryId) })
     .populate('categoryId')
-    .populate('artisanId');
+    .populate('userId');
 
     const mydata = JSON.parse(JSON.stringify( products ));
-    // console.log(mydata);
 
     return { data: mydata, error: null };
   } catch (error) {

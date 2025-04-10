@@ -6,11 +6,12 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div className="flex justify-center">
           <Image
-            src="https://fastly.picsum.photos/id/527/4000/3000.jpg?hmac=M_RkizFIz8z52aYpBpgAV1i0fjFT5etMkZptB4KorC4"
             alt="Artesanías hechas a mano"
-            width={500}
-            height={400}
             className="border border-gray-300 p-1 rounded-2xl shadow-xl"
+            height={400}
+            priority
+            src="https://fastly.picsum.photos/id/527/4000/3000.jpg?hmac=M_RkizFIz8z52aYpBpgAV1i0fjFT5etMkZptB4KorC4"
+            width={500}
           />
         </div>
 

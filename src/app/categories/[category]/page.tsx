@@ -1,49 +1,38 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { listProducts } from '@/api/controllers/products';
-import { useCategories } from '@/app/ui/category/useCategories';
-/*
- {
+import { listProductsByCategory } from '@/api/controllers/products';
+ 
+ 
+
+
+interface Product {
   _id: string;
   name: string;
   description: string;
   price: number;
   imageUrl: string;
-  category: string;
-  name: string;
-  status: string;
-}
-*/
-interface productsInterface{
-  _id: string;
-  name: string;
-  description:string;
-  price: string;
-  stock: string;
-  imageUrl: string;
   categoryId: {
     _id: string;
     name: string;
-    description: string;
-    imageUrl: string
-  },
-  artisanId: string;
+  };
+  status: string;
 }
 
-export default function ListProducts() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [products, setProducts] = useState<productsInterface[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+
+
+export default function CategoryProducts({ params }: { params: Promise<{ category: string }> }) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const { categories } = useCategories();
-
+ 
+ 
   useEffect(() => {
-    const fetchProducts = async () => {
-     
+    const fetchData = async () => {
       try {
-        const { data, error } = await listProducts();
+        const { category } = await params;
+        const { data, error } =  await listProductsByCategory(category);
+        console.log(data);
         if (error) {
           setError(error);
         } else {
@@ -52,42 +41,24 @@ export default function ListProducts() {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
+        setError('Failed to fetch products');
         setLoading(false);
       }
     };
-    fetchProducts();
-  }, []);
 
-  const filteredProducts =
-    selectedCategory === 'all'
-      ? products
-      : products.filter((product) => product.categoryId.name=== selectedCategory);
+    fetchData();
+  }, [params]);
+
 
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
-      
-
-        {/* Category Filter */}
-        <div className="mb-8">
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border rounded-lg bg-white"
-          >
-            <option value="all">All Categories</option>
-            {categories.map((category) => (
-              <option key={category._id} value={category.name}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <h1 className="text-2xl font-bold mb-8">Products in Category</h1>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
-            // Loading state
+            // Estado de Carga
             Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow">
                 <div className="h-48 bg-background/50 rounded-lg mb-4"></div>
@@ -96,36 +67,28 @@ export default function ListProducts() {
               </div>
             ))
           ) : (
-            filteredProducts.map((product) => (
-
-              
-              <div key={product._id} className="bg-gray-100 p-4 rounded-lg shadow-lg ">
-              {
+            products.map((product) => (
+              <div key={product._id} className="bg-gray-100 p-4 rounded-lg shadow-lg">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
-                }
                 <h2 className="text-xl font-semibold text-primary mb-2">
                   {product.name}
                 </h2>
-          {/*"text-primary/70 mb-4   leading-6 text-justify min-h-[5rem]"*/}
                 <div className="p-4 rounded-lg bg-white mb-4 shadow-sm min-h-[150px]">
-                <p className= "text-primary/70 mb-4 leading-6 text-justify h-full">
-                   {product.description}
-                   </p>
+                  <p className="text-primary/70 mb-4 leading-6 text-justify h-full">
+                    {product.description}
+                  </p>
                 </div>
-
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-bold text-primary">
                     ${product.price}
                   </span>
-
-                 
-                </div>                
+                  
+                </div>
                 <p className="text-primary">By {product.name}</p>
-
               </div>
             ))
           )}

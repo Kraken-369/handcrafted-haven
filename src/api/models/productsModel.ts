@@ -7,10 +7,9 @@ const productsModel = new Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   images: { type: String, required: true  },
-  category: { type:  String , enum:['Clothing & Accessories',
-    'Jewelry', 'Home Decor' ,'Personal Care', 'Food & Beverages','Stationery & Paper Goods','Toys & Games', 'Artwork & Prints','Leather Goods','Miscellaneous Handmade Item'] , required: true },
-  creator: { type: String, required: true   },
-  status: { type: String, enum: ["Available", "Out of stock"], required: true }
+  categoryId: { type: Schema.Types.ObjectId,    ref: 'Category',    required: true, },
+  artisanId: { type: Schema.Types.ObjectId, ref: 'users', required: true, },
+ status: { type: String, enum: ["Available", "Out of stock"], required: true }
   ,
 });
 export const ProductsModel = models.products || model('products',productsModel);

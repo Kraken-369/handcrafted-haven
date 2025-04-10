@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { listProducts } from '@/api/controllers/products';
-import { mockProducts } from './mockData'; // <= added
+// import { mockProducts } from './mockData'; 
 
 type ProductType = {
   _id: string;

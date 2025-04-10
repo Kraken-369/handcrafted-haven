@@ -21,6 +21,9 @@ export async function listUsers() {
   try {
     await  connectDB();
     const users = JSON.parse(JSON.stringify( await UserModel.find()));
+
+    console.log(users );
+
     return { data: users, error: null };
 
   } catch (error) {

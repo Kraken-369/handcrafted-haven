@@ -1,7 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getProductsByCategoryId } from '@/api/controllers/products';
+import { listProductsByCategory } from '@/api/controllers/products';
+ 
+ 
+
 
 interface Product {
   _id: string;
@@ -16,47 +19,36 @@ interface Product {
   status: string;
 }
 
-export default function CategoryProducts({ categoryId }: { categoryId: string }) {
+
+
+export default function CategoryProducts({ params }: { params: Promise<{ category: string }> }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const callGetProductsByCategoryId = async (categoryId: string) => {
-    const req = {
-      query: {
-        id: categoryId
-      }
-    };
-    
-    const res = {
-      status: (code: number) => ({
-        json: (data: any) => ({ status: code, data })
-      })
-    };
-
-    const result = await getProductsByCategoryId(req as any, res as any);
-    return result;
-  };
-
+ 
+ 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const result = await callGetProductsByCategoryId(categoryId);
-        const { data, error } = result;
-        
+        const { category } = await params;
+        const { data, error } =  await listProductsByCategory(category);
+        console.log(data);
         if (error) {
           setError(error);
         } else {
           setProducts(data);
         }
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
-        setError(error.message);
+        setError('Failed to fetch products');
+        setLoading(false);
       }
-      setLoading(false);
     };
-    fetchProducts();
-  }, [categoryId]);
+
+    fetchData();
+  }, [params]);
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -94,15 +86,7 @@ export default function CategoryProducts({ categoryId }: { categoryId: string })
                   <span className="text-lg font-bold text-primary">
                     ${product.price}
                   </span>
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      product.status === 'Available'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
-                  >
-                    {product.status}
-                  </span>
+                  
                 </div>
                 <p className="text-primary">By {product.name}</p>
               </div>

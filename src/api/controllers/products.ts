@@ -81,3 +81,32 @@ export const getProductsByCategoryId = async (req: NextApiRequest, res: NextApiR
     return res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 }
+
+// api/client.ts
+export const fetchProductsByCategoryId = async (categoryId: string) => {
+  const response = await fetch(`/api/categories/${categoryId}`);
+  const data = await response.json();
+  return data;
+};
+
+
+export async function listProductsByCategory(categoryId: string) {
+
+  try { 
+    await  connectDB();
+    //console.log('antes listar');
+    
+    const products = await ProductsModel.find({ categoryId: ObjectId.createFromHexString(categoryId) })
+    .populate('categoryId')
+    .populate('artisanId');
+
+    const mydata = JSON.parse(JSON.stringify( products ));
+    // console.log(mydata);
+
+    return { data: mydata, error: null };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
+    return { data: [], error: errorMessage }; // Devuelve el error como string
+        
+  }
+}

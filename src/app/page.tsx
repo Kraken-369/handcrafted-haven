@@ -1,5 +1,6 @@
 import ProductsByCategory from '@/app/components/Galleries/ProductsByCategory';
 import Hero from '@/app/components/Hero';
+import Deals from '@/app/components/Deals';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
           <h2>[Our Products]</h2>
         </section>
         <hr />
+        <Deals />
         <section className="w-full py-8 px-4">
           <h2>[Testimonials]</h2>
         </section>

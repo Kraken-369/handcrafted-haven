@@ -37,10 +37,11 @@ export default function ListProducts() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { categories, loading: loadingCategories, error: errorCategories } = useCategories();
+  const { categories } = useCategories();
 
   useEffect(() => {
     const fetchProducts = async () => {
+     
       try {
         const { data, error } = await listProducts();
         if (error) {
@@ -121,15 +122,7 @@ export default function ListProducts() {
                     ${product.price}
                   </span>
 
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      product.status === 'Available'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
-                  >
-                    {product.status}
-                  </span>
+                 
                 </div>                
                 <p className="text-primary">By {product.name}</p>
 

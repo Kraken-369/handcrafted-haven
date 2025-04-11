@@ -19,20 +19,21 @@ export const loginUser = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials.' });
+      return res.status(401).json({ message: 'Invalid email credentials.' });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Invalid credentials.' });
+      return res.status(401).json({ message: 'Invalid password credentials.' });
     }
 
     const token = jwt.sign(
       {
         id: user._id,
-        role: user.role,
+        name: user.name,
         email: user.email,
+        role: user.role,
       },
       JWT_SECRET,
       { expiresIn: '7d' }

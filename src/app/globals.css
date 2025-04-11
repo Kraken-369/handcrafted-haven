@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   --font-primary: 'Jost';
   --font-secondary: 'Handlee';
+  --gray: rgb(245 245 245);
   --gray-dark: rgb(119 128 130);
   --gray-light: rgb(236 236 236);
   --green-dark: rgb(8 46 33);
@@ -14,16 +13,8 @@
   --white: rgb(255 255 255);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  color: var(--black);
   font-family: var(--font-primary), Arial, Helvetica, sans-serif;
 }
 
@@ -59,4 +50,17 @@ body {
 .hh-name-category,
 .hh-price {
   color: var(--green-light);
+}
+
+.hh-bg-form-login {
+  background-color: var(--gray);
+}
+
+.hh-bg-form-login input {
+  background-color: var(--white);
+}
+
+.hh-bg-form-login button {
+  background-color: var(--green-light);
+  cursor: pointer;
 }

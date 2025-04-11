@@ -1,0 +1,67 @@
+[
+    {
+      "username": "janedoe",
+      "name": "Jane Doe",
+      "bio": "Items created for jewlery and home decor.",
+      "image": "https://cdn.pixabay.com/photo/2024/04/01/13/25/tree-8668939_1280.jpg",
+      "products": [
+        {
+          "_id": "67ec23c9413da921fc37bcd0",
+          "name": "Rustic Wooden Dining Table",
+          "description": "Handcrafted wooden dining table made from reclaimed oak.",
+          "price": 350,
+          "stock": 5,
+          "imageUrl": "https://cdn.pixabay.com/photo/2014/05/21/14/53/table-349677_1280.jpg"
+        }
+      ]
+    },
+    {
+      "username": "juanperez",
+      "name": "Juan Pérez",
+      "bio": "Handmade items with a focus on sustainability.",
+      "image": "https://cdn.pixabay.com/photo/2018/03/15/15/27/the-figurine-3228555_1280.jpg",
+      "products": [
+        {
+          "_id": "23de37a747e1a9f5f36a27f2",
+          "name": "Handmade Ceramic Vase",
+          "description": "Beautiful hand-painted ceramic vase with intricate patterns.",
+          "price": 45,
+          "stock": 10,
+          "imageUrl": "https://cdn.pixabay.com/photo/2019/03/20/21/21/cherry-blossoms-4069596_1280.jpg"
+        }
+      ]
+    },
+    {
+      "username":"carlosmendoza",
+      "name": "Carlos Mendoza",
+      "bio": "Artisan specializing in woodworking and furniture design.",
+      "image": "https://cdn.pixabay.com/photo/2025/01/01/16/52/ai-generated-9304098_960_720.jpg",
+      "products": [
+        {
+          "_id": "67ec23c9413da921fc37bcd0",
+          "name": "Rustic Wooden Dining Table",
+          "description": "Handcrafted wooden dining table made from reclaimed oak.",
+          "price": 350,
+          "stock": 5,
+          "imageUrl": "https://cdn.pixabay.com/photo/2014/05/21/14/53/table-349677_1280.jpg"
+        }
+      ]
+    },
+    {
+      "username": "annmarie",
+      "name": "Ann Marie",
+      "bio": "Rugs made from natural fibers.",
+      "image": "https://cdn.pixabay.com/photo/2023/11/24/20/41/ai-generated-8410620_1280.jpg",
+      "products": [
+        {
+          "_id": "07cfa9a8decf9b1460097990",
+          "name": "Handwoven Wool Rug",
+          "description": "Traditional handwoven wool rug with geometric patterns.",
+          "price": 220,
+          "stock": 3,
+          "imageUrl": "https://cdn.pixabay.com/photo/2015/11/07/17/20/hands-1032312_1280.jpg"
+        }
+      ]
+    }
+  ]
+  

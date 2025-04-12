@@ -2,9 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { listProductsByCategory } from '@/api/controllers/products';
- 
- 
-
 
 interface Product {
   _id: string;
@@ -32,7 +29,7 @@ export default function CategoryProducts({ params }: { params: Promise<{ categor
       try {
         const { category } = await params;
         const { data, error } =  await listProductsByCategory(category);
-        console.log(data);
+        
         if (error) {
           setError(error);
         } else {
@@ -41,7 +38,7 @@ export default function CategoryProducts({ params }: { params: Promise<{ categor
         setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
-        setError('Failed to fetch products');
+        setError('Failed to fetch products.');
         setLoading(false);
       }
     };
@@ -55,10 +52,8 @@ export default function CategoryProducts({ params }: { params: Promise<{ categor
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-8">Products in Category</h1>
 
-        {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
-            // Estado de Carga
             Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow">
                 <div className="h-48 bg-background/50 rounded-lg mb-4"></div>

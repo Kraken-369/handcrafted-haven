@@ -8,7 +8,8 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<
     "dashboard" | "profile" | "products"
   >("dashboard");
-
+  
+  const userId = "abc123";
   return (
     <div className="flex h-screen">
       <aside className="w-64 bg-[#0a5d5d] text-white p-4">
@@ -62,6 +63,7 @@ const Dashboard = () => {
               setBio={setBio}
               image={image}
               setImage={setImage}
+              userId={userId}
             />
           )}
         </div>

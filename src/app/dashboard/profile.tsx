@@ -23,8 +23,11 @@ const Profile: React.FC<ProfileProps> = ({ userId, bio, setBio, image, setImage 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const tempImageURL = URL.createObjectURL(file);
-      setImage(tempImageURL); // Preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 

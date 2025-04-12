@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === "PUT") {
-    return await updateUserById(req, res);
+    return updateUserById(req, res);
   }
 
   return res.status(405).json({ error: 'Method not allowed.' });

@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 interface User {
   name: string;
-  bio: string;
-  profileImage: string;
+  bio?: string; 
+  profileImage?: string; 
 }
 
 const UserProfile = ({ user }: { user: User }) => {
@@ -16,7 +16,7 @@ const UserProfile = ({ user }: { user: User }) => {
         height={96}
         className="rounded-full object-cover border"
       />
-      <p className="text-gray-700">{user.bio}</p>
+      <p className="text-gray-700">{user.bio || "No bio available"}</p>
     </div>
   );
 };

@@ -1,33 +1,42 @@
-"use client";
-import React, { useState } from "react";
-import ProfileEditor from "./profile";
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import ProfileEditor from '@/app/dashboard/profile';
 
 const Dashboard = () => {
-  const [bio, setBio] = useState("Welcome to your profile! This is your bio.");
+  const [bio, setBio] = useState('Welcome to your profile! This is your bio.');
   const [image, setImage] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<
-    "dashboard" | "profile" | "products"
-  >("dashboard");
-  
-  const userId = "abc123";
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'profile' | 'products'>('dashboard');
+  const { user } = useAuth();
+  const router = useRouter();
+  const userId = '123';
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [user, router]);
+
+  if (!user) return null;
+
   return (
     <div className="flex h-screen">
       <aside className="w-64 bg-[#0a5d5d] text-white p-4">
         <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
         <ul>
           <li
-            className={`cursor-pointer py-2 ${
-              activeTab === "dashboard" ? "text-black" : "hover:text-white"
-            }`}
+            className={`cursor-pointer py-2 ${activeTab === "dashboard" ? "text-black" : "hover:text-white"
+              }`}
             onClick={() => setActiveTab("dashboard")}
           >
             Overview
           </li>
           <li
-            className={`cursor-pointer py-2 ${
-              activeTab === "profile" ? "text-black" : "hover:text-white"
-            }`}
+            className={`cursor-pointer py-2 ${activeTab === "profile" ? "text-black" : "hover:text-white"
+              }`}
             onClick={() => setActiveTab("profile")}
           >
             Edit Profile

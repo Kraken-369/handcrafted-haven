@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import { Button } from '@/app/ui/button';
+import Image from 'next/image';
 
 interface ProfileProps {
   userId: string;
@@ -75,17 +76,20 @@ const Profile: React.FC<ProfileProps> = ({ userId, bio, setBio, image, setImage 
       </div>
 
       {image && (
-        <img
-          src={image}
-          alt="Profile"
-          className="w-12 h-12 rounded-full mb-4"
-        />
+        <div className="w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto relative">
+          <Image src={image} alt="Profile" layout="fill" objectFit="cover" />
+        </div>
       )}
 
       <div className="flex justify-center mt-4">
         <label className="bg-gray-400 text-white px-4 py-2 flex items-center justify-center gap-2 rounded cursor-pointer">
           Upload Image
-          <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden"/>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
         </label>
       </div>
     </div>

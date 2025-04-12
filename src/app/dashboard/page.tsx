@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ProfileEditor from "./profile";
+import Image from 'next/image';
 
 const Dashboard = () => {
   const [bio, setBio] = useState("Welcome to your profile! This is your bio.");
@@ -46,11 +47,14 @@ const Dashboard = () => {
                   Profile Summary
                 </h2>
                 {image && (
-                  <img
-                    src={image}
-                    alt="Profile"
-                    className="w-32 h-32 rounded-full mb-4 mx-auto"
-                  />
+                  <div className="w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto relative">
+                    <Image
+                      src={image}
+                      alt="Profile"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
                 )}
                 <p className="text-center">{bio}</p>
               </section>

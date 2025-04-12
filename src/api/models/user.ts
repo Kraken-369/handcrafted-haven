@@ -7,7 +7,6 @@ export interface IUser extends Document {
   role: 'administrator' | 'artisan' | 'customer';
   bio?: string;
   profileImage?: string;
-  featuredProducts?: string[]; 
   createdAt: Date;
   updatedAt: Date;
 }
@@ -43,10 +42,7 @@ const UserSchema: Schema<IUser> = new Schema(
       type: String,
       default: '',
     },
-    featuredProducts: {
-      type: [String],
-      default: [],
-    },
+
   },
   {
     timestamps: false,

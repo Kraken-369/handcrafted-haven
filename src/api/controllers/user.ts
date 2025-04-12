@@ -70,3 +70,38 @@ export const getUserById = async (req: NextApiRequest, res: NextApiResponse) => 
     return res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 }
+
+export const updateUserById = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+  const userId = Array.isArray(id) ? id[0] : id;
+
+  if (req.method !== 'PUT') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
+
+  if (!userId || !ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: 'Invalid user ID' });
+  }
+
+  const { bio, profileImage, featuredProducts } = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        ...(bio !== undefined && { bio }),
+        ...(profileImage !== undefined && { profileImage }),
+        ...(featuredProducts !== undefined && { featuredProducts }),
+      },
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    return res.status(500).json({ message: `Failed to update user: ${error}` });
+  }
+};

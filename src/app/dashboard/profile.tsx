@@ -1,28 +1,51 @@
+'use client';
 import React, { useState } from "react";
 import { Button } from '@/app/ui/button';
 
-
-
 interface ProfileProps {
+  userId: string;
   bio: string;
   setBio: (bio: string) => void;
   image: string | null;
   setImage: (image: string | null) => void;
 }
 
-const Profile: React.FC<ProfileProps> = ({ bio, setBio, image, setImage }) => {
+const Profile: React.FC<ProfileProps> = ({ userId, bio, setBio, image, setImage }) => {
   const [editMode, setEditMode] = useState(false);
   const [tempBio, setTempBio] = useState(bio);
 
   const handleSave = () => {
     setBio(tempBio);
     setEditMode(false);
+    saveToDatabase(tempBio, image);
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setImage(URL.createObjectURL(file));
+      const tempImageURL = URL.createObjectURL(file);
+      setImage(tempImageURL); // Preview
+    }
+  };
+
+  const saveToDatabase = async (bio: string, image: string | null) => {
+    try {
+      const res = await fetch(`/api/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bio, profileImage: image }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message);
+      }
+
+      console.log("Profile updated!");
+    } catch (err) {
+      console.error("Failed to save profile:", err);
     }
   };
 
@@ -38,16 +61,16 @@ const Profile: React.FC<ProfileProps> = ({ bio, setBio, image, setImage }) => {
               value={tempBio}
               onChange={(e) => setTempBio(e.target.value)}
             />
-                <Button onClick={handleSave}>Save</Button>
+            <Button onClick={handleSave}>Save</Button>
           </>
         ) : (
           <>
             <p className="text-center mb-2 max-w-md">{bio}</p>
             <Button onClick={() => setEditMode(true)}>Edit Bio</Button>
-
           </>
         )}
       </div>
+
       {image && (
         <img
           src={image}

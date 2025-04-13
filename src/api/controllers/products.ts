@@ -5,16 +5,15 @@ import { ProductsModel } from '@/api/models/productsModel';
 
 import Product from '@/api/models/product';
 import Category from '@/api/models/category';
-import '@/api/models/user'; 
+import User from '@/api/models/user'; 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
 
+await  connectDB();
 
 export async function listProducts() {
 
   try { 
-    await  connectDB();
-
     const products = await ProductsModel.find()
     .populate('categoryId');
 
@@ -44,9 +43,6 @@ export type newProductsType = {
 export async function saveProductsOnMongo(products:newProductsType) {
 
   try {
-    console.log(`saveProductsOnMongo:Recibi:${products.name}`);
-     await  connectDB();     
-       
      const newProduct = new ProductsModel(products);
      await newProduct.save();
      return newProduct;
@@ -66,8 +62,6 @@ export const getProductsByCategoryId = async (req: NextApiRequest, res: NextApiR
   if (!categoryId) {
     return res.status(400).json({ message: 'Category ID is required.' });
   }
-
-  await connectDB();
 
   try {
     const products = await Product.find({ categoryId: ObjectId.createFromHexString(categoryId) }).populate('categoryId', 'name');
@@ -100,5 +94,27 @@ export async function listProductsByCategory(categoryId: string) {
     const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
     return { data: [], error: errorMessage }; // Devuelve el error como string
         
+  }
+}
+
+export const getProductsByUserId = async (req: NextApiRequest, res: NextApiResponse) => {
+  void User;
+  const { id } = req.query;
+  const userId = Array.isArray(id) ? id[0] : id;
+
+  if (!userId) {
+    return res.status(400).json({ message: 'User ID is required.'});
+  }
+
+  if (!ObjectId.isValid(userId)) {
+    return res.status(500).json({ message: 'Invalid user ID.'});
+  }
+
+  try {
+    const products = await Product.find({ artisanId: ObjectId.createFromHexString(userId) }).populate('categoryId');
+
+    return res.status(200).json(products);
+  } catch (error) {
+    return res.status(500).json({ message: `Internal Server Error: ${error}` });
   }
 }

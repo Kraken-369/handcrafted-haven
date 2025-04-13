@@ -2,15 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import ProfileEditor from '@/app/dashboard/profile';
+import MyArt from '@/app/dashboard/products/page';
 
 const Dashboard = () => {
   const [bio, setBio] = useState('Welcome to your profile! This is your bio.');
   const [image, setImage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'profile' | 'products'>('dashboard');
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const router = useRouter();
   const userId = '123';
 
@@ -22,9 +24,15 @@ const Dashboard = () => {
 
   if (!user) return null;
 
+  const handleSignOut = () => {
+    signOut();
+    router.push('/');
+  };
+
   return (
     <div className="flex h-screen">
       <aside className="w-64 bg-[#0a5d5d] text-white p-4">
+        <h1 className="hh-title hh-title-gray text-center handlewriting">Handcrafted Haven</h1>
         <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
         <ul>
           <li
@@ -41,11 +49,17 @@ const Dashboard = () => {
           >
             Edit Profile
           </li>
+          <li className="py-2">
+            <Link href="#" className="hover:text-blue-600" onClick={() => setActiveTab('products')}>My Art</Link>
+          </li>
+          <li className="py-2">
+            <Link href="/" className="hover:text-blue-600" onClick={handleSignOut}>Sign Out</Link>
+          </li>
         </ul>
       </aside>
 
       <main className="flex-1 p-8 bg-gray-50 flex justify-center">
-        <div className="w-full max-w-2xl">
+        <div className="w-full">
           {activeTab === "dashboard" && (
             <>
               <h1 className="text-3xl font-bold mb-6 text-center">
@@ -79,6 +93,8 @@ const Dashboard = () => {
               userId={userId}
             />
           )}
+
+          {activeTab === 'products' && (<MyArt />)}
         </div>
       </main>
     </div>

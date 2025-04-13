@@ -64,10 +64,15 @@ const Navbar = () => {
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Productos</Link></li>
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Contacto</Link></li>
           {user ? (
-            <li>
-              <span className="text-blue-600 font-semibold">Welcome, {user.name}!</span>
-              <Link href="/dashboard" className="block" onClick={() => setIsOpen(false)}>Go to dashboard</Link>
-            </li>
+            <>
+              <li>
+                <span className="text-blue-600 font-semibold">Welcome, {user.name}!</span>
+                <Link href="/dashboard" className="block" onClick={() => setIsOpen(false)}>Go to dashboard</Link>
+              </li>
+              <li>
+                <Link href="/" className="hover:text-blue-600" onClick={handleSignOut}>Sign Out</Link>
+              </li>
+            </>
           ) : (
             <>
               <li><Link href="/login" className="block" onClick={() => setIsOpen(false)}>Sign In</Link></li>

@@ -38,7 +38,6 @@ body {
 }
 
 .hh-title {
-  color: var(--black);
   font-family: var(--font-secondary);
   font-size: 1.85rem;
 }
@@ -68,3 +67,11 @@ body {
 .hh-border-gray {
   border-top: 1px solid var(--gray-light);
 }
+
+.hh-text-gray {
+  color: var(--gray);
+}
+
+.hh-text-green-light {
+  color: var(--green-light)
+;}

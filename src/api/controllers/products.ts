@@ -90,8 +90,8 @@ export async function listProductsByCategory(categoryId: string) {
     await  connectDB();
     
     const products = await ProductsModel.find({ categoryId: ObjectId.createFromHexString(categoryId) })
-    .populate('categoryId')
-    .populate('userId');
+    .populate({path:'categoryId', strictPopulate:false})
+    .populate({path:'userId',strictPopulate:false} );
 
     const mydata = JSON.parse(JSON.stringify( products ));
 

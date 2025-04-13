@@ -1,3 +1,4 @@
+'use server';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
@@ -105,3 +106,23 @@ export const updateUserById = async (req: NextApiRequest, res: NextApiResponse) 
     return res.status(500).json({ message: `Failed to update user: ${error}` });
   }
 };
+
+
+
+export async function listUsers() {
+
+  try {
+
+    await  connectDB();
+    const users = JSON.parse(JSON.stringify( await User.find()));
+    return { data: users, error: null };
+  
+  } catch (error) {
+
+          const errorMessage = error instanceof Error ? error.message : 'Error Unknown';
+        return { data: [], error: errorMessage }; 
+        
+  }
+}
+
+

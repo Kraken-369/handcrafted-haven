@@ -2,7 +2,6 @@
 
 import connectDB from '@/api/config/db';
 import { ProductsModel } from '@/api/models/productsModel';
-
 import Product from '@/api/models/product';
 import Category from '@/api/models/category';
 import User from '@/api/models/user'; 
@@ -116,5 +115,37 @@ export const getProductsByUserId = async (req: NextApiRequest, res: NextApiRespo
     return res.status(200).json(products);
   } catch (error) {
     return res.status(500).json({ message: `Internal Server Error: ${error}` });
+  }
+}
+
+export const newProduct = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { name, description, price, stock, imageUrl, categoryId, artisanId } = req.body;
+  const artisanIdObject = ObjectId.createFromHexString(Array.isArray(artisanId) ? artisanId[0] : artisanId);
+  const categoryIdObject = ObjectId.createFromHexString(Array.isArray(categoryId) ? categoryId[0] : categoryId);
+
+  if (!ObjectId.isValid(artisanIdObject) && !ObjectId.isValid(categoryIdObject)) {
+    return res.status(500).json({ message : 'Invalid User ID or Category ID provided.'});
+  }
+
+  if (!name || !price || !imageUrl) {
+    return res.status(400).json({ message: 'Missing required fields.'});
+  }
+
+  const newProduct = new Product({
+    name,
+    description,
+    price,
+    stock,
+    imageUrl,
+    categoryId,
+    artisanId
+  });
+
+  try {
+    await newProduct.save()
+    
+    return res.status(201).json(newProduct);
+  } catch (error) {
+    return res.status(500).json({ message: `Error creating product: ${error}` });
   }
 }

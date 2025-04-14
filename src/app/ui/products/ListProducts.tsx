@@ -31,6 +31,20 @@ interface productsInterface {
   artisanId: string;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function ListProducts() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [products, setProducts] = useState<productsInterface[]>([]);
@@ -63,6 +77,26 @@ export default function ListProducts() {
       : products.filter(
           (product) => product.categoryId.name === selectedCategory
         );
+
+  const handleAddToCart = (product: productsInterface) => {
+    // Retrieve existing cart items from local storage or initialize an empty array
+    const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    // Check if the product is already in the cart
+    const productExists = cartItems.some(
+      (item: productsInterface) => item._id === product._id
+    );
+
+    // If the product doesn't exist in the cart, add it
+    if (!productExists) {
+      cartItems.push(product);
+    }
+
+    // Update local storage with the new cart items
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    // Optionally, you can update the component's state to reflect the change in the cart
+    console.log('Product added to cart:', product.name);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -123,7 +157,10 @@ export default function ListProducts() {
                   </div>
                   <p className="text-primary">By {product.name}</p>
                   {/* with this button I will save this item to the local storage and update the cart */}
-                  <button className="mt-4 px-4 py-2 bg-green-dark text-black rounded-lg hover:bg-green-light/80 transition duration-200">
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="mt-4 px-4 py-2 bg-green-dark text-black rounded-lg hover:bg-green-light/80 transition duration-200"
+                  >
                     Add To Cart
                   </button>
                 </div>

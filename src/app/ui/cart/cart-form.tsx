@@ -1,27 +1,63 @@
 'use client';
+import { createPurchase } from '@/api/controllers/purchase';
 import Link from 'next/link';
-import { useActionState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-function form() {
+function Form() {
+  const [customerID, setCustomerID] = useState<string | null>(null);
+  const [products, setProducts] = useState<any[]>([]);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const storedProducts = localStorage.getItem('products');
+    if (storedProducts) {
+      const parsedProducts = JSON.parse(storedProducts);
+      setProducts(parsedProducts);
+
+      const calculatedTotal = parsedProducts.reduce(
+        (acc: number, product: { price: number }) => acc + product.price,
+        0
+      );
+      setTotalAmount(calculatedTotal);
+
+      const purchaseData = {
+        customerID: customerID,
+        products: parsedProducts,
+        totalAmount: calculatedTotal,
+      };
+      const response = await createPurchase(purchaseData);
+
+      if (response?.ok) {
+        router.push('/');
+      }
+    }
+  };
+
+  useEffect(() => {
+    const storedCustomerID = localStorage.getItem('customerID');
+    setCustomerID(storedCustomerID);
+  }, []);
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         {/* customer name */}
         <label htmlFor="customer">Customer Name</label>
         <input type="text" id="customer" name="customer" required />
       </div>
       <div>
-        {/* customer email */}
-        <label htmlFor="email">Customer Email</label>
-        <input type="email" id="email" name="email" required />
+        <label htmlFor="customerID" hidden>
+          Customer ID
+        </label>
+        <input type="text" id="customerID" name="customerID" hidden value={customerID || ''} />
       </div>
-      <div>
-        {/* customer phone */}
-        <label htmlFor="phone">Customer Phone</label>
-        <input type="tel" id="phone" name="phone" required />
-      </div>
+
       <button type="submit">Buy</button>
     </form>
   );
 }
-export default form;
+
+export default Form;

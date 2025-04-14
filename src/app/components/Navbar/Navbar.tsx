@@ -29,7 +29,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <ul className={`hidden md:flex flex-1 justify-center space-x-6 text-gray-700`}>
           <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-          <li><Link href="/" className="hover:text-blue-600">About Us</Link></li>
+          <li><Link href="/about" className="hover:text-blue-600">About Us</Link></li>
           <li><Link href="/" className="hover:text-blue-600">Products</Link></li>
           <li><Link href="/" className="hover:text-blue-600">Contact</Link></li>
           <li>
@@ -60,7 +60,7 @@ const Navbar = () => {
       {isOpen && (
         <ul className="md:hidden bg-white shadow-md p-4 space-y-4 text-gray-700">
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Inicio</Link></li>
-          <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Nosotros</Link></li>
+          <li><Link href="/about" className="block" onClick={() => setIsOpen(false)}>Nosotros</Link></li>
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Productos</Link></li>
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Contacto</Link></li>
           {user ? (

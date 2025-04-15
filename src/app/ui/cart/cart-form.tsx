@@ -1,11 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 
 function Form() {
-  const [products, setProducts] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
   const { user } = useAuth();
   const router = useRouter();
 

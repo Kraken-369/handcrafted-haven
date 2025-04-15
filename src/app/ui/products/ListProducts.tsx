@@ -3,18 +3,8 @@
 import { useEffect, useState } from 'react';
 import { listProducts ,listProductsByCategory} from '@/api/controllers/products';
 import { useCategories } from '@/app/ui/category/useCategories';
-/*
- {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  category: string;
-  name: string;
-  status: string;
-}
-*/
+import Image from 'next/image';
+
 interface productsInterface {
   _id: string;
   name: string;
@@ -30,20 +20,6 @@ interface productsInterface {
   };
   artisanId: string;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default function ListProducts() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -109,7 +85,7 @@ export default function ListProducts() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div>
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Category Filter */}
         <div className="mb-8">
@@ -141,15 +117,19 @@ export default function ListProducts() {
             : products.map((product) => (
                 <div
                   key={product._id}
-                  className="bg-gray-100 p-4 rounded-lg shadow-lg "
+                  className="bg-gray-100 p-4 rounded-lg shadow-lg"
                 >
+                  <div className="relative h-36 w-full">
                   {
-                    <img
+                    <Image
                       src={product.imageUrl}
                       alt={product.name}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
+                      className="object-cover rounded"
+                      fill
+                      sizes="(max-width: 100%)"
                     />
                   }
+                  </div>
                   <h2 className="text-xl font-semibold text-primary mb-2">
                     {product.name}
                   </h2>

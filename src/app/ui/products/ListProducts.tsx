@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { listProducts } from '@/api/controllers/products';
+import { listProducts ,listProductsByCategory} from '@/api/controllers/products';
 import { useCategories } from '@/app/ui/category/useCategories';
 /*
  {
@@ -56,27 +56,37 @@ export default function ListProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data, error } = await listProducts();
-        if (error) {
-          setError(error);
+        setLoading(true);
+        
+
+        if (selectedCategory === 'all') {
+     
+          const { data, error } = await listProducts();
+          if (error) {
+            setError(error);
+          } else {
+            setProducts(data);
+          }
         } else {
-          setProducts(data);
+        
+          
+          const { data, error } = await listProductsByCategory(selectedCategory);
+          if (error) {
+            setError(error);
+          } else {
+            setProducts(data);
+          }
         }
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching products:', error);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError('Failed to fetch products');
+      } finally {
         setLoading(false);
       }
     };
-    fetchProducts();
-  }, []);
 
-  const filteredProducts =
-    selectedCategory === 'all'
-      ? products
-      : products.filter(
-          (product) => product.categoryId.name === selectedCategory
-        );
+    fetchProducts();
+  }, [selectedCategory]);
 
   const handleAddToCart = (product: productsInterface) => {
     // Retrieve existing cart items from local storage or initialize an empty array
@@ -110,7 +120,7 @@ export default function ListProducts() {
           >
             <option value="all">All Categories</option>
             {categories.map((category) => (
-              <option key={category._id} value={category.name}>
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
@@ -128,7 +138,7 @@ export default function ListProducts() {
                   <div className="h-4 bg-background/50 rounded w-1/2"></div>
                 </div>
               ))
-            : filteredProducts.map((product) => (
+            : products.map((product) => (
                 <div
                   key={product._id}
                   className="bg-gray-100 p-4 rounded-lg shadow-lg "

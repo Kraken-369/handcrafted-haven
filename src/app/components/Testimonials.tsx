@@ -37,7 +37,7 @@ export default function Testimonials() {
               height={80}
               className="rounded-full mb-4 object-cover"
             />
-            <p className="italic text-gray-700 mb-4">"{t.message}"</p>
+            <p className="italic text-gray-700 mb-4">&quot;{t.message}&quot;</p>
             <p className="font-semibold text-green-dark">– {t.name}</p>
           </div>
         ))}

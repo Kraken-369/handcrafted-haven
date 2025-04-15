@@ -1,5 +1,3 @@
-// this will be a page for the shopping cart
-
 import Form from '@/app/ui/cart/cart-form';
 import Table from '@/app/ui/cart/products-table';
 

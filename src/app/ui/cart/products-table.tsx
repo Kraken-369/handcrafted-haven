@@ -1,8 +1,24 @@
 'use client';
 import { useState, useEffect } from 'react';
 
+type Product = {
+  artisanId: string;
+  categoryId: {
+    _id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+  };
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  stock: number;
+  _id: string;
+};
+
 function ProductsTable() {
-  const [cartProducts, setCartProducts] = useState<any[]>([]);
+  const [cartProducts, setCartProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
@@ -57,7 +73,7 @@ function ProductsTable() {
         <tbody className="bg-white divide-y divide-gray-200">
           {cartProducts.length > 0 ? (
             cartProducts.map((product) => {
-              const quantity = product.quantity || 1;
+              const quantity = product.stock || 1;
               const totalPrice = product.price * quantity;
               return (
                 <tr key={product._id}>

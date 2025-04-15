@@ -4,7 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       'fastly.picsum.photos',
-      'cdn.pixabay.com'
+      'cdn.pixabay.com',
+      'i.pravatar.cc',
     ],
   },
 };

@@ -1,6 +1,7 @@
 import ProductsByCategory from '@/app/components/Galleries/ProductsByCategory';
 import Hero from '@/app/components/Hero';
 import Deals from '@/app/components/Deals';
+import Testimonials from '@/app/components/Testimonials';
 import ClientLayout from '@/app/layout.client';
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
         <hr />
         <Deals />
         <section className="w-full py-8 px-4">
-          <h2>[Testimonials]</h2>
+        <Testimonials />
         </section>
         <hr />
         <ProductsByCategory />

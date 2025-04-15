@@ -2,6 +2,22 @@
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
+type Product = {
+  artisanId: string;
+  categoryId: {
+    _id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+  };
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  stock: number;
+  _id: string;
+};
+
 function Form() {
   const { user } = useAuth();
   const router = useRouter();
@@ -12,9 +28,9 @@ function Form() {
     if (storedCart) {
       const parsedProducts = JSON.parse(storedCart);
       // Transform the products to match the Purchase model
-      const transformedProducts = parsedProducts.map((product: any) => ({
+      const transformedProducts = parsedProducts.map((product: Product) => ({
         productId: product._id,
-        quantity: product.quantity || 1, // default quantity if not provided
+        quantity: product.stock || 1,
         price: product.price,
       }));
 

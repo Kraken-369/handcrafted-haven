@@ -29,8 +29,12 @@ export default function ContactPage() {
       if (!res.ok) throw new Error(data.message);
       setSuccess(data.message);
       setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong.');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Something went wrong.');
+      } else {
+        setError('An unknown error occurred.');
+      }
     }
   };
 

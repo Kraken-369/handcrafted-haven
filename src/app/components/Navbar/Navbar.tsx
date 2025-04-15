@@ -31,7 +31,7 @@ const Navbar = () => {
           <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
           <li><Link href="/about" className="hover:text-blue-600">About Us</Link></li>
           <li><Link href="/" className="hover:text-blue-600">Products</Link></li>
-          <li><Link href="/" className="hover:text-blue-600">Contact</Link></li>
+          <li><Link href="/contact" className="hover:text-blue-600">Contact</Link></li>
           <li>
           {user ? (
               <>
@@ -62,7 +62,7 @@ const Navbar = () => {
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Inicio</Link></li>
           <li><Link href="/about" className="block" onClick={() => setIsOpen(false)}>Nosotros</Link></li>
           <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Productos</Link></li>
-          <li><Link href="/" className="block" onClick={() => setIsOpen(false)}>Contacto</Link></li>
+          <li><Link href="/contact" className="block" onClick={() => setIsOpen(false)}>Contacto</Link></li>
           {user ? (
             <>
               <li>

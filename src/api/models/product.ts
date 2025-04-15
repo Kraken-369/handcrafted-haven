@@ -20,7 +20,6 @@ const ProductSchema: Schema<IProduct> = new Schema(
     },
     description: {
       type: String,
-      required: true,
       trim: true,
       maxlength: 1000,
     },
@@ -31,8 +30,8 @@ const ProductSchema: Schema<IProduct> = new Schema(
     },
     stock: {
       type: Number,
-      required: true,
       min: 0,
+      default: 1
     },
     imageUrl: {
       type: String,

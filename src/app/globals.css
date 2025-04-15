@@ -51,17 +51,31 @@ body {
   color: var(--green-light);
 }
 
+.hh-bg-form,
 .hh-bg-form-login {
   background-color: var(--gray);
 }
 
+.hh-bg-form input,
 .hh-bg-form-login input {
   background-color: var(--white);
+}
+
+.hh-bg-form input,
+.hh-bg-form textarea,
+.hh-bg-form select {
+  background-color: var(--white);
+  font-size: 0.8rem;
 }
 
 .hh-bg-form-login button {
   background-color: var(--green-light);
   cursor: pointer;
+}
+
+.hh-bg-form label {
+  font-size: 0.9rem;
+  padding-right: 10px;
 }
 
 .hh-border-gray {

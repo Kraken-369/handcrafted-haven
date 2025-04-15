@@ -1,61 +1,87 @@
 'use client';
-import { createPurchase } from '@/api/controllers/purchase';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 
 function Form() {
-  const [customerID, setCustomerID] = useState<string | null>(null);
-  const [products, setProducts] = useState<any[]>([]);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [products, setProducts] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const { user } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const storedProducts = localStorage.getItem('products');
-    if (storedProducts) {
-      const parsedProducts = JSON.parse(storedProducts);
-      setProducts(parsedProducts);
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      const parsedProducts = JSON.parse(storedCart);
+      // Transform the products to match the Purchase model
+      const transformedProducts = parsedProducts.map((product: any) => ({
+        productId: product._id,
+        quantity: product.quantity || 1, // default quantity if not provided
+        price: product.price,
+      }));
 
-      const calculatedTotal = parsedProducts.reduce(
-        (acc: number, product: { price: number }) => acc + product.price,
+      // Calculate total based on each product's price.
+      const calculatedTotal = transformedProducts.reduce(
+        (acc: number, product: { price: number; quantity: number }) =>
+          acc + product.price * product.quantity,
         0
       );
-      setTotalAmount(calculatedTotal);
 
       const purchaseData = {
-        customerID: customerID,
-        products: parsedProducts,
+        userId: user?.id,
+        products: transformedProducts,
         totalAmount: calculatedTotal,
       };
-      const response = await createPurchase(purchaseData);
 
-      if (response?.ok) {
+      const response = await fetch('/api/purchases', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(purchaseData),
+      });
+
+      if (response.ok) {
+        localStorage.removeItem('cart');
         router.push('/');
+      } else {
+        console.error('Purchase failed');
       }
     }
   };
 
-  useEffect(() => {
-    const storedCustomerID = localStorage.getItem('customerID');
-    setCustomerID(storedCustomerID);
-  }, []);
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        {/* customer name */}
+    <form onSubmit={handleSubmit} className="flex flex-col items-center mt-4">
+      <div className="mb-4">
+        {/* Customer Name */}
         <label htmlFor="customer">Customer Name</label>
-        <input type="text" id="customer" name="customer" required />
+        <input
+          type="text"
+          id="customer"
+          name="customer"
+          value={user?.name || ''}
+          required
+          className="border border-gray-300 rounded p-2"
+        />
       </div>
       <div>
         <label htmlFor="customerID" hidden>
           Customer ID
         </label>
-        <input type="text" id="customerID" name="customerID" hidden value={customerID || ''} />
+        <input
+          type="text"
+          id="customerID"
+          name="customerID"
+          hidden
+          value={user?.id || ''}
+          className="border border-gray-300 rounded p-2"
+        />
       </div>
 
-      <button type="submit">Buy</button>
+      <button type="submit" className="bg-black text-white rounded p-2 mt-4">
+        Buy
+      </button>
     </form>
   );
 }

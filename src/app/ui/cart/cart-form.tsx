@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useState } from 'react';
 
 type Product = {
   artisanId: string;
@@ -21,6 +22,8 @@ type Product = {
 function Form() {
   const { user } = useAuth();
   const router = useRouter();
+  const [name, setName] = useState(user?.name || '');
+  const [customerID, setCustomerID] = useState(user?.id || '');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,7 +76,10 @@ function Form() {
           type="text"
           id="customer"
           name="customer"
-          value={user?.name || ''}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
           required
           className="border border-gray-300 rounded p-2"
         />
@@ -87,7 +93,10 @@ function Form() {
           id="customerID"
           name="customerID"
           hidden
-          value={user?.id || ''}
+          value={customerID}
+          onChange={(e) => {
+            setCustomerID(e.target.value);
+          }}
           className="border border-gray-300 rounded p-2"
         />
       </div>

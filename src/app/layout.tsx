@@ -1,7 +1,6 @@
 import '@/app/globals.css';
 import { jost, handlee } from './ui/fonts';
 import { AuthProvider } from '@/context/AuthContext';
-import Navbar from './components/Navbar/Navbar';
 
 export const metadata = {
   title: 'Handcrafted Haven',

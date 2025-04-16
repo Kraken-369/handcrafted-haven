@@ -44,6 +44,7 @@ export default function ListProducts() {
   const [error, setError] = useState<string | null>(null);
 
   const { categories } = useCategories();
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -95,7 +96,6 @@ export default function ListProducts() {
     // Update local storage with the new cart items
     localStorage.setItem('cart', JSON.stringify(cartItems));
 
-    const cartContext = useContext(CartContext);
     cartContext?.refreshCart();
     console.log('Product added to cart:', product.name);
   };

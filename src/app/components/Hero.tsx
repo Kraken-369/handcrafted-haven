@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -6,7 +7,7 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div className="flex justify-center">
           <Image
-            alt="Artesanías hechas a mano"
+            alt="Handmade crafts"
             className="border border-gray-300 p-1 rounded-2xl shadow-xl"
             height={400}
             priority
@@ -20,11 +21,14 @@ const Hero = () => {
             Discover unique, handmade pieces
           </h1>
           <p className="text-lg md:text-xl mb-6">
-            We connect local artisans with lovers of authentic and sustainable design.
+            We connect local artisans with lovers of authentic and sustainable
+            design.
           </p>
-          <button className="btn-green-light text-white px-6 py-3 rounded-2xl transition-all duration-300">
-            Show Products
-          </button>
+          <Link href="/products">
+            <button className="btn-green-light text-white px-6 py-3 rounded-2xl transition-all duration-300">
+              Show Products
+            </button>
+          </Link>
         </div>
       </div>
     </section>

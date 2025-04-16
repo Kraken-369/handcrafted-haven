@@ -11,16 +11,14 @@ export const metadata = {
     { name: 'Nestor Ramiro Otondo Rios' },
     { name: 'Ivan Josue Romero Bobadilla' },
     { name: 'Pedro Rafael Zelada Soruco' },
-  ]
+  ],
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${jost.variable} ${handlee.variable}`}>
       <body className="flex flex-col min-h-screen">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

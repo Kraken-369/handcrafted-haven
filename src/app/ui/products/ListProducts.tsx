@@ -1,8 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { listProducts ,listProductsByCategory} from '@/api/controllers/products';
+import { useEffect, useState, useContext } from 'react';
+import {
+  listProducts,
+  listProductsByCategory,
+} from '@/api/controllers/products';
 import { useCategories } from '@/app/ui/category/useCategories';
+import { CartContext } from '@/context/CartContext';
+/*
+ {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  category: string;
+  name: string;
+  status: string;
+}
+*/
 import Image from 'next/image';
 
 interface productsInterface {
@@ -28,15 +44,14 @@ export default function ListProducts() {
   const [error, setError] = useState<string | null>(null);
 
   const { categories } = useCategories();
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        
 
         if (selectedCategory === 'all') {
-     
           const { data, error } = await listProducts();
           if (error) {
             setError(error);
@@ -44,9 +59,9 @@ export default function ListProducts() {
             setProducts(data);
           }
         } else {
-        
-          
-          const { data, error } = await listProductsByCategory(selectedCategory);
+          const { data, error } = await listProductsByCategory(
+            selectedCategory
+          );
           if (error) {
             setError(error);
           } else {
@@ -80,7 +95,8 @@ export default function ListProducts() {
 
     // Update local storage with the new cart items
     localStorage.setItem('cart', JSON.stringify(cartItems));
-    // Optionally, you can update the component's state to reflect the change in the cart
+
+    cartContext?.refreshCart();
     console.log('Product added to cart:', product.name);
   };
 
@@ -120,15 +136,15 @@ export default function ListProducts() {
                   className="bg-gray-100 p-4 rounded-lg shadow-lg"
                 >
                   <div className="relative h-36 w-full">
-                  {
-                    <Image
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="object-cover rounded"
-                      fill
-                      sizes="(max-width: 100%)"
-                    />
-                  }
+                    {
+                      <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="object-cover rounded"
+                        fill
+                        sizes="(max-width: 100%)"
+                      />
+                    }
                   </div>
                   <h2 className="text-xl font-semibold text-primary mb-2">
                     {product.name}

@@ -1,15 +1,17 @@
-'use client'
- 
-import ListProducts from "../ui/products/ListProducts"
+'use client';
 
-export default function Home() {
-  
+import ListProducts from '../ui/products/ListProducts';
+import ClientLayout from '../layout.client';
 
+export default function Products() {
   return (
-    <div>
-    <h1 className="text-3xl text-center pt-2 font-bold text-primary mb-8">Our Products Page</h1>
-    <ListProducts/>
-  
-    </div>
+    <ClientLayout>
+      <div className="container mx-auto ">
+        <h1 className="text-3xl text-center pt-2 font-bold text-primary mb-8">
+          Our Products Page
+        </h1>
+        <ListProducts />
+      </div>
+    </ClientLayout>
   );
 }

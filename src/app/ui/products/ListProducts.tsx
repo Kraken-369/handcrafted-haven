@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState, useContext } from 'react';
 import { listProducts } from '@/api/controllers/products';
 import { useCategories } from '@/app/ui/category/useCategories';
+import { CartContext } from '@/context/CartContext';
 /*
  {
   _id: string;
@@ -30,20 +31,6 @@ interface productsInterface {
   };
   artisanId: string;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default function ListProducts() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -94,7 +81,9 @@ export default function ListProducts() {
 
     // Update local storage with the new cart items
     localStorage.setItem('cart', JSON.stringify(cartItems));
-    // Optionally, you can update the component's state to reflect the change in the cart
+
+    const cartContext = useContext(CartContext);
+    cartContext?.refreshCart();
     console.log('Product added to cart:', product.name);
   };
 

@@ -2,14 +2,17 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useContext } from 'react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { CartContext } from '@/context/CartContext';
 
 const Navbar = () => {
   const { user, signOut } = useAuth();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const cartContext = useContext(CartContext);
+  const cartCount = cartContext?.cartCount || 0;
 
   const handleSignOut = () => {
     signOut();
@@ -20,16 +23,14 @@ const Navbar = () => {
     <nav className="bg-white shadow-md sticky top-0 w-full z-50">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <div className={`handwriting logo`}>
+        <div className="handwriting logo">
           <Link href="/" className="hover:text-blue-600">
             Handcrafted Haven
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <ul
-          className={`hidden md:flex flex-1 justify-center space-x-6 text-gray-700`}
-        >
+        <ul className="hidden md:flex flex-1 justify-center space-x-6 text-gray-700">
           <li>
             <Link href="/" className="hover:text-blue-600">
               Home
@@ -58,7 +59,7 @@ const Navbar = () => {
                 </span>
                 &nbsp; [{' '}
                 <Link href="/dashboard" className="hover:text-blue-600">
-                  Go to dashboard
+                  Dashboard
                 </Link>
                 &nbsp;|&nbsp;
                 <Link
@@ -83,6 +84,16 @@ const Navbar = () => {
                 ]
               </>
             )}
+          </li>
+          <li>
+            <Link href="/cart" className="relative hover:text-blue-600">
+              <ShoppingCart className="w-6 h-6" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </li>
         </ul>
 
@@ -127,6 +138,20 @@ const Navbar = () => {
               Contact
             </Link>
           </li>
+          <li>
+            <Link
+              href="/cart"
+              className="block relative"
+              onClick={() => setIsOpen(false)}
+            >
+              Cart
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </li>
           {user ? (
             <>
               <li>
@@ -138,15 +163,11 @@ const Navbar = () => {
                   className="block"
                   onClick={() => setIsOpen(false)}
                 >
-                  Go to dashboard
+                  Dashboard
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/"
-                  className="hover:text-blue-600"
-                  onClick={handleSignOut}
-                >
+                <Link href="/" className="block" onClick={handleSignOut}>
                   Sign Out
                 </Link>
               </li>

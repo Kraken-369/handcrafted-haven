@@ -1,7 +1,10 @@
 'use client';
 
-import { use, useEffect, useState, useContext } from 'react';
-import { listProducts } from '@/api/controllers/products';
+import { useEffect, useState } from 'react';
+import {
+  listProducts,
+  listProductsByCategory,
+} from '@/api/controllers/products';
 import { useCategories } from '@/app/ui/category/useCategories';
 import { CartContext } from '@/context/CartContext';
 /*
@@ -16,6 +19,8 @@ import { CartContext } from '@/context/CartContext';
   status: string;
 }
 */
+import Image from 'next/image';
+
 interface productsInterface {
   _id: string;
   name: string;
@@ -43,27 +48,35 @@ export default function ListProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data, error } = await listProducts();
-        if (error) {
-          setError(error);
+        setLoading(true);
+
+        if (selectedCategory === 'all') {
+          const { data, error } = await listProducts();
+          if (error) {
+            setError(error);
+          } else {
+            setProducts(data);
+          }
         } else {
-          setProducts(data);
+          const { data, error } = await listProductsByCategory(
+            selectedCategory
+          );
+          if (error) {
+            setError(error);
+          } else {
+            setProducts(data);
+          }
         }
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching products:', error);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError('Failed to fetch products');
+      } finally {
         setLoading(false);
       }
     };
-    fetchProducts();
-  }, []);
 
-  const filteredProducts =
-    selectedCategory === 'all'
-      ? products
-      : products.filter(
-          (product) => product.categoryId.name === selectedCategory
-        );
+    fetchProducts();
+  }, [selectedCategory]);
 
   const handleAddToCart = (product: productsInterface) => {
     // Retrieve existing cart items from local storage or initialize an empty array
@@ -88,7 +101,7 @@ export default function ListProducts() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div>
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Category Filter */}
         <div className="mb-8">
@@ -99,7 +112,7 @@ export default function ListProducts() {
           >
             <option value="all">All Categories</option>
             {categories.map((category) => (
-              <option key={category._id} value={category.name}>
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
@@ -117,18 +130,22 @@ export default function ListProducts() {
                   <div className="h-4 bg-background/50 rounded w-1/2"></div>
                 </div>
               ))
-            : filteredProducts.map((product) => (
+            : products.map((product) => (
                 <div
                   key={product._id}
-                  className="bg-gray-100 p-4 rounded-lg shadow-lg "
+                  className="bg-gray-100 p-4 rounded-lg shadow-lg"
                 >
-                  {
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
-                    />
-                  }
+                  <div className="relative h-36 w-full">
+                    {
+                      <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="object-cover rounded"
+                        fill
+                        sizes="(max-width: 100%)"
+                      />
+                    }
+                  </div>
                   <h2 className="text-xl font-semibold text-primary mb-2">
                     {product.name}
                   </h2>
